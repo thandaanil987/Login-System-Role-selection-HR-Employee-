@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 50px; }
+    </style>
+</head>
+<body>
+    
+    <!-- Login Section -->
+    <div class="container" id="login-section">
+        <h2 class="text-center">Employee Training Portal</h2>
+        <div class="card p-4">
+            <label for="role">Select Role:</label>
+            <select id="role" class="form-control">
+                <option value="employee">Employee</option>
+                <option value="hr">HR</option>
+            </select>
+            <button class="btn btn-primary mt-3" onclick="login()">Login</button>
+        </div>
+    </div>
+    
+    <!-- Main Dashboard -->
+    <div class="container d-none" id="dashboard">
+        <h2 class="text-center">Training Materials</h2>
+        
+        <!-- Upload Section (HR Only) -->
+        <div id="upload-section" class="d-none">
+            <h4>Upload Training Materials</h4>
+            <input type="file" id="file-upload" class="form-control">
+            <button class="btn btn-success mt-2" onclick="uploadFile()">Upload</button>
+        </div>
+        
+        <!-- Search & Filter -->
+        <div class="mt-4">
+            <input type="text" id="search" class="form-control" placeholder="Search documents..." onkeyup="filterDocs()">
+        </div>
+        
+        <!-- Documents List -->
+        <div class="mt-3" id="document-list">
+            <ul class="list-group">
+                <li class="list-group-item">Employee Handbook.pdf</li>
+                <li class="list-group-item">Workplace Safety.ppt</li>
+                <li class="list-group-item">Code of Conduct.pdf</li>
+            </ul>
+        </div>
+        
+        <!-- Feedback Section -->
+        <div class="mt-4">
+            <h4>Feedback</h4>
+            <textarea id="feedback" class="form-control" placeholder="Suggest improvements..."></textarea>
+            <button class="btn btn-warning mt-2" onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+    </div>
+    
+    <script>
+        function login() {
+            let role = document.getElementById("role").value;
+            document.getElementById("login-section").classList.add("d-none");
+            document.getElementById("dashboard").classList.remove("d-none");
+            
+            if (role === "hr") {
+                document.getElementById("upload-section").classList.remove("d-none");
+            }
+        }
+        
+        function uploadFile() {
+            alert("File uploaded successfully!");
+        }
+        
+        function filterDocs() {
+            let query = document.getElementById("search").value.toLowerCase();
+            let items = document.querySelectorAll("#document-list li");
+            
+            items.forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(query) ? "block" : "none";
+            });
+        }
+        
+        function submitFeedback() {
+            let feedback = document.getElementById("feedback").value;
+            if (feedback.trim() !== "") {
+                alert("Thank you for your feedback!");
+                document.getElementById("feedback").value = "";
+            }
+        }
+    </script>
+</body>
+</html>
